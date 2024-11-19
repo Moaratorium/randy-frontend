@@ -1,12 +1,12 @@
 import { createMemoryHistory, createRouter} from 'vue-router'
-import Landing from './components/landing.vue'
-import Servers from './components/servers.vue'
-import Server from './components/server.vue'
+import Landing from './views/landing.vue'
+import Servers from './views/servers.vue'
+import Server from './views/server.vue'
 
 const routes = [
-    {path: '/', component: Landing},
-    {path: '/servers', component: Servers},
-    {path: '/server', component: Server}
+    {path: '/', name:'landing', component: Landing},
+    {path: '/servers', name:'servers', component: Servers},
+    {path: '/server', name:'server', component: Server}
 ]
 
 const router = createRouter({

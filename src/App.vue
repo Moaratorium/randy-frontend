@@ -1,12 +1,15 @@
 <script setup>
-import Landing from './components/landing.vue'
+import Landing from './views/landing.vue'
+
 </script>
 
 <template>
   <div>
     <p>Welcome to</p>
   </div>
-  <Landing msg="Randy Music Bot" />
+  <div id="viewPane">
+    <RouterView />
+  </div>
 </template>
 
 <style scoped>
