@@ -31,7 +31,7 @@ const dummyServerList = ref([
   <ServerTag
   v-for="(server, index) in dummyServerList"
   :key="server.serverID"
-  :title="server.serverName"
+  :name="server.serverName"
   :image="server.serverImageUri"
   ></ServerTag>
 </template>

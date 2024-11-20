@@ -1,11 +1,13 @@
 <script setup>
+import { RouterLink } from 'vue-router'
 defineProps(['name', 'image'])
 </script>
 
 <template>
   <div class="serverTag">
     <img :src="image">
-    {{ name }}
+
+     <RouterLink :to="`${name}`">{{ name }}</RouterLink>
   </div>
 </template>
 

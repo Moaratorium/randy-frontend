@@ -1,18 +1,11 @@
 <script setup>
-import { createRouter } from 'vue-router'
-import { ref } from 'vue'
-
 defineProps({
-  msg: String,
+  serverName: String,
 })
-
 </script>
 
 <template>
-<h1>{{ msg }}</h1>
-  <div class="card">
-    <button type="button" @click="discordLogin">Log In With Discord</button>
-  </div>
+<h1>test:  {{ serverName }}</h1>
 </template>
 
 <style scoped>
