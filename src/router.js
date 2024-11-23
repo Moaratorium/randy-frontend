@@ -6,7 +6,7 @@ import Server from './views/server.vue'
 const routes = [
     {path: '/', name:'landing', component: Landing},
     {path: '/servers', name:'servers', component: Servers},
-    {path: '/:serverName', name:'server', component: Server, props: true}
+    {path: '/servers/:serverName', name:'server', component: Server, props: true}
 ]
 
 const router = createRouter({

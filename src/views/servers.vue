@@ -2,26 +2,16 @@
 import { ref } from 'vue'
 import ServerTag from '../components/servertag.vue'
   
-const dummyServerList = ref([
+const mockLiveData = ref([
     {
-        serverName: "Server1",
-        serverID: 1234567890,
-        serverImageUri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Basic_human_drawing.png/170px-Basic_human_drawing.png'
+        "name": "Light Heaven/Lowrollers",
+        "id": "881111533332684298",
+        "icon": 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Basic_human_drawing.png/170px-Basic_human_drawing.png' // live returns null?
     },
     {
-        serverName: "Server2",
-        serverID: 1231231231,
-        serverImageUri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Basic_human_drawing.png/170px-Basic_human_drawing.png'
-    },
-    {
-        serverName: "Server3",
-        serverID: 3213213213,
-        serverImageUri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Basic_human_drawing.png/170px-Basic_human_drawing.png'
-    },
-    {
-        serverName: "Server4",
-        serverID: 1111111111,
-        serverImageUri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Basic_human_drawing.png/170px-Basic_human_drawing.png'
+        "name": "Moaratorium's Testland",
+        "id": "1207461053911122233",
+        "icon": 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Basic_human_drawing.png/170px-Basic_human_drawing.png'
     }
 ]);
 </script>
@@ -29,10 +19,10 @@ const dummyServerList = ref([
 <template>
 <h1>Server List</h1>
   <ServerTag
-  v-for="(server, index) in dummyServerList"
-  :key="server.serverID"
-  :name="server.serverName"
-  :image="server.serverImageUri"
+  v-for="(server, index) in mockLiveData"
+  :key="server.id"
+  :name="server.name"
+  :image="server.icon"
   ></ServerTag>
 </template>
 

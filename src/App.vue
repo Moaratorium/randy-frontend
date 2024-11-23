@@ -5,7 +5,7 @@ import Landing from './views/landing.vue'
 
 <template>
   <div>
-    <p>Welcome to</p>
+    <p>App Template Here</p>
   </div>
   <div id="viewPane">
     <RouterView />
@@ -13,5 +13,7 @@ import Landing from './views/landing.vue'
 </template>
 
 <style scoped>
-
+#viewPane {
+  border: 1px solid white;
+}
 </style>

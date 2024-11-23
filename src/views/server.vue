@@ -1,11 +1,11 @@
 <script setup>
 defineProps({
-  serverName: String,
+  name: String,
 })
 </script>
 
 <template>
-<h1>test:  {{ serverName }}</h1>
+<h1>test:  {{ name }}</h1> <!-- might need to make a GET request here instead of passing variables, we'll see -->
 </template>
 
 <style scoped>

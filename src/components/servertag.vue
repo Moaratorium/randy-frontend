@@ -7,7 +7,7 @@ defineProps(['name', 'image'])
   <div class="serverTag">
     <img :src="image">
 
-     <RouterLink :to="`${name}`">{{ name }}</RouterLink>
+     <RouterLink :to="{path: `/servers/${name}`, props: { name: `${name}`}}">{{ name }}</RouterLink> <!-- not passing properly -->
   </div>
 </template>
 
