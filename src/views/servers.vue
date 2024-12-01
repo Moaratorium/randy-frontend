@@ -18,6 +18,7 @@ const mockLiveData = ref([
 
 const route = useRoute()
 
+const api = import.meta.env.VITE_BACKEND_API;
 const loading = ref(false)
 let serverList = ref(null)
 const error = ref(null)
@@ -28,10 +29,10 @@ async function getServers() {
   error.value = serverList = null
   loading.value = true
   try {
-    const response = await fetch('http://localhost:3000/api/servers');
+    const response = await fetch(`${api}/servers`);
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`)
-      // custom error handling here
+      // custom error handling WIP
     }
     serverList = await response.json();
     console.log(serverList)
