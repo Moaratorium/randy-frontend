@@ -5,6 +5,7 @@ import { useRoute } from 'vue-router'
 
 
 const serverId = mockServer.id;
+const serverName = mockServer.name;
 const route = useRoute()
 
 const api = import.meta.env.VITE_BACKEND_API;
@@ -35,7 +36,7 @@ async function getQueue() {
 </script>
 
 <template>
-<h1>test:  The queue for server :{{ serverId }} </h1> <!-- might need to make a GET request here instead of passing variables, we'll see -->
+<h1>test:  The queue for server : {{ serverName + serverId }} </h1>
 <div v-if="loading" class="loading">Loading...</div>
 <div v-if="error" class="error">error test</div>
 <div v-if="queue" class="content">{{ queue }}</div>
