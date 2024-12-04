@@ -33,7 +33,7 @@ async function getQueue() {
 <template>
 <h1>test:  The queue for server : {{ serverName + serverId }} </h1>
 <div v-if="queue" class="content">{{ queue }}</div>
-<div v-else class="content">Nothing is playing...</div>
+<div v-else class="content">Nothing is playing.</div>
 <button @click="getQueue"></button>
 </template>
 

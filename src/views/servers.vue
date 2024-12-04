@@ -41,7 +41,7 @@ async function getServers() {
   ></ServerTag>
 </div>
 <div v-else class="empty">
-  test: no servers
+  No servers present.
 </div>
 </template>
 
