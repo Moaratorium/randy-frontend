@@ -6,13 +6,14 @@ defineProps({
 })
   
 
+
 </script>
 
 <template>
 <h1>{{ msg }}</h1>
   <div class="card">
-    <button type="button">
-      <RouterLink to="/servers">Test servers</RouterLink></button>
+    <button type="button" @click="discordRedirect">login</button>
+      <RouterLink to="/servers">Test servers</RouterLink>
   </div>
 </template>
 
