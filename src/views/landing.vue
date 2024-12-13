@@ -1,6 +1,6 @@
 <script setup>
 import { RouterLink, useRoute } from 'vue-router'
-import { onMounted, ref, watch } from 'vue';
+import { onMounted, ref } from 'vue';
 
 const route = useRoute()
 
@@ -35,7 +35,7 @@ async function fetchUserDetails(token) {
   }
 }
 
-function checkForToken() {
+function getToken() {
   const hash = window.location.hash;
   if (hash.includes("access_token")) {
     const token = new URLSearchParams(hash.slice(1)).get("access_token");
@@ -44,7 +44,7 @@ function checkForToken() {
 }
 
 function handleLogin() {
-  const code = checkForToken();
+  const code = getToken();
   fetchUserDetails(code)
 }
 

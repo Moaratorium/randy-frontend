@@ -1,9 +1,24 @@
 <script setup>
+import { ref, onMounted } from 'vue';
+
+const props = defineProps({
+    error: String
+})
+
+let defaultError = "404 - Page Not Found";
+let errMsg = ref("");
+onMounted(() => {
+    if(!props.error) {
+        errMsg.value = defaultError;
+    } else {
+        errMsg.value = props.error;
+    }
+})
 </script>
 
 <template>
 <div>
-    404 - Page Not Found
+    <p id="errorField">{{ errMsg }}</p>
 </div>
 </template>
 
