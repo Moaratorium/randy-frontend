@@ -1,10 +1,12 @@
 <script setup>
 import { RouterLink, useRoute } from 'vue-router'
 import { onMounted, ref } from 'vue';
+import { useAuthStore } from '../stores/authstore'
 
 const route = useRoute()
 
-let user = ref(null);
+const authStore = useAuthStore();
+
 let username = ref(null);
 let msg = ref("login with discord");
 let loggedIn = ref(false);
@@ -27,6 +29,8 @@ async function fetchUserDetails(token) {
     });
     const data = await response.json();
     username.value = data.username;
+    authStore.setUser(data.username)
+    console.log(authStore.getUser) // quick verification
     if (username.value) {
     msg.value = ("logged in as: ")
     loggedIn.value = true;}
