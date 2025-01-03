@@ -2,12 +2,16 @@
 import { ref, watch } from 'vue'
 import ServerTag from '../components/servertag.vue'
 import { useRoute } from 'vue-router'
+import { useAuthStore } from '../stores/authstore';
 
 const route = useRoute()
+const authStore = useAuthStore()
+
 
 const api = import.meta.env.VITE_BACKEND_API;
 
 const serverList = ref(null)
+
 
 
 watch(() => route.params.id, getServers, { immediate: true })
