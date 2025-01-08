@@ -1,8 +1,8 @@
 <script setup>
-import { RouterLink, useRoute } from 'vue-router'
+import { RouterLink, useRouter } from 'vue-router'
 import { onMounted, ref } from 'vue';
 
-const route = useRoute()
+const router = useRouter()
 
 let user = ref(null);
 let username = ref(null);
@@ -29,7 +29,9 @@ async function fetchUserDetails(token) {
     username.value = data.username;
     if (username.value) {
     msg.value = ("logged in as: ")
-    loggedIn.value = true;}
+    loggedIn.value = true;
+    localStorage.setItem("login", data.username)
+  }
   } catch (error) {
     console.error("Error fetching user details:", error);
   }
@@ -44,8 +46,20 @@ function getToken() {
 }
 
 function handleLogin() {
-  const code = getToken();
-  fetchUserDetails(code)
+  if (localStorage.getItem("login")) {
+    loggedIn.value = true;
+    username.value = localStorage.getItem("login")
+  } else {
+    const code = getToken();
+    fetchUserDetails(code)
+  }
+}
+
+function logout(){
+  localStorage.removeItem("login")
+  username.value = null;
+  loggedIn.value = false;
+  router.push('/')
 }
 
 onMounted(() => {
@@ -61,6 +75,7 @@ onMounted(() => {
       <button v-if="!loggedIn" type="button" @click="loginWithDiscord">login</button>
       <div id="displayUsername"> {{ username }} </div>
     <RouterLink to="/servers">Test servers</RouterLink>
+    <button v-if="loggedIn" type="button" @click="logout">logout</button>
   </div>
   </div>
 </template>
