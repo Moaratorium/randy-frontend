@@ -38,11 +38,12 @@ async function fetchUserDetails(token) {
 }
 
 function getToken() {
+  let token = null;
   const hash = window.location.hash;
   if (hash.includes("access_token")) {
-    const token = new URLSearchParams(hash.slice(1)).get("access_token");
-    return token;
+    token = new URLSearchParams(hash.slice(1)).get("access_token");
   }
+  return token;
 }
 
 function handleLogin() {
@@ -50,8 +51,10 @@ function handleLogin() {
     loggedIn.value = true;
     username.value = localStorage.getItem("login")
   } else {
-    const code = getToken();
-    fetchUserDetails(code)
+    const token = getToken();
+    if (token) {
+      fetchUserDetails(token)
+    }
   }
 }
 
