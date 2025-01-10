@@ -9,7 +9,6 @@ const api = import.meta.env.VITE_BACKEND_API;
 
 const serverList = ref(null)
 
-
 watch(() => route.params.id, getServers, { immediate: true })
 
 async function getServers() {
@@ -17,11 +16,8 @@ async function getServers() {
     const response = await fetch(`${api}/servers`);
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`)
-      // custom error handling WIP
     }
     serverList.value = await response.json();
-    console.log(serverList)
-    forceRender()
   } catch (error) {
     console.error(error.message)
   } 
@@ -34,7 +30,7 @@ async function getServers() {
 <div v-if="serverList" class="content">
   <ServerTag
   v-for="(server, index) in serverList"
-  :key="index + refreshCount"
+  :key="index"
   :id="server.id"
   :name="server.name"
   :image="server.icon"
