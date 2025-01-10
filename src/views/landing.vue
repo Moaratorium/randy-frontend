@@ -11,11 +11,31 @@ const isLoggedIn = ref(false);
 const DISCORD_CLIENT_ID = import.meta.env.VITE_DISCORD_CLIENT_ID;
 const DISCORD_REDIRECT_URI = import.meta.env.VITE_DISCORD_REDIRECT_URI;
 
-function loginWithDiscord() {
-  const oauthUrl = `https://discord.com/oauth2/authorize?client_id=${DISCORD_CLIENT_ID}&redirect_uri=${encodeURIComponent(
-    DISCORD_REDIRECT_URI
-  )}&response_type=token&scope=identify`;
-  window.location.href = oauthUrl;
+onMounted(() => {
+  handleLogin();
+});
+
+function handleLogin() {
+  const storedUsername = localStorage.getItem("username");
+
+  if (storedUsername) {
+    isLoggedIn.value = true;
+    username.value = storedUsername;
+    message.value = `Logged in as: ${storedUsername}`;
+  } else {
+    const token = getTokenFromHash();
+    if (token) {
+      fetchUserDetails(token);
+    }
+  }
+};
+
+function getTokenFromHash() {
+  const hash = window.location.hash;
+  if (hash.includes("access_token")) {
+    return new URLSearchParams(hash.slice(1)).get("access_token");
+  }
+  return null;
 };
 
 async function fetchUserDetails(token) {
@@ -38,39 +58,21 @@ async function fetchUserDetails(token) {
   }
 };
 
-function getTokenFromHash() {
-  const hash = window.location.hash;
-  if (hash.includes("access_token")) {
-    return new URLSearchParams(hash.slice(1)).get("access_token");
-  }
-  return null;
-};
-
-function handleLogin() {
-  const storedUsername = localStorage.getItem("username");
-
-  if (storedUsername) {
-    isLoggedIn.value = true;
-    username.value = storedUsername;
-    message.value = `Logged in as: ${storedUsername}`;
-  } else {
-    const token = getTokenFromHash();
-    if (token) {
-      fetchUserDetails(token);
-    }
-  }
+function loginWithDiscord() {
+  const oauthUrl = `https://discord.com/oauth2/authorize?client_id=${DISCORD_CLIENT_ID}&redirect_uri=${encodeURIComponent(
+    DISCORD_REDIRECT_URI
+  )}&response_type=token&scope=identify`;
+  window.location.href = oauthUrl;
 };
 
 function logout() {
   localStorage.removeItem("username");
   username.value = null;
   isLoggedIn.value = false;
+  message.value = "Login with Discord";
   router.push("/");
 };
 
-onMounted(() => {
-  handleLogin();
-});
 </script>
 
 <template>
