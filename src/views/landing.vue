@@ -65,6 +65,7 @@ function logout() {
   localStorage.removeItem("username");
   username.value = null;
   isLoggedIn.value = false;
+  message.value = "Login with Discord";
   router.push("/");
 };
 
