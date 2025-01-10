@@ -8,9 +8,6 @@ const username = ref(null);
 const message = ref("Login with Discord");
 const isLoggedIn = ref(false);
 
-const DISCORD_CLIENT_ID = import.meta.env.VITE_DISCORD_CLIENT_ID;
-const DISCORD_REDIRECT_URI = import.meta.env.VITE_DISCORD_REDIRECT_URI;
-
 onMounted(() => {
   handleLogin();
 });
@@ -28,7 +25,7 @@ function handleLogin() {
       fetchUserDetails(token);
     }
   }
-};
+}
 
 function getTokenFromHash() {
   const hash = window.location.hash;
@@ -36,7 +33,7 @@ function getTokenFromHash() {
     return new URLSearchParams(hash.slice(1)).get("access_token");
   }
   return null;
-};
+}
 
 async function fetchUserDetails(token) {
   try {
@@ -56,14 +53,16 @@ async function fetchUserDetails(token) {
   } catch (error) {
     console.error("Error fetching user details:", error);
   }
-};
+}
 
 function loginWithDiscord() {
+  const DISCORD_CLIENT_ID = import.meta.env.VITE_DISCORD_CLIENT_ID;
+  const DISCORD_REDIRECT_URI = import.meta.env.VITE_DISCORD_REDIRECT_URI;
   const oauthUrl = `https://discord.com/oauth2/authorize?client_id=${DISCORD_CLIENT_ID}&redirect_uri=${encodeURIComponent(
     DISCORD_REDIRECT_URI
   )}&response_type=token&scope=identify`;
   window.location.href = oauthUrl;
-};
+}
 
 function logout() {
   localStorage.removeItem("username");
@@ -71,8 +70,7 @@ function logout() {
   isLoggedIn.value = false;
   message.value = "Login with Discord";
   router.push("/");
-};
-
+}
 </script>
 
 <template>
