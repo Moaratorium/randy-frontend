@@ -1,22 +1,39 @@
 <script setup>
-import { RouterLink, useRoute } from 'vue-router'
-import { onMounted, ref } from 'vue';
+import { RouterLink, useRouter } from "vue-router";
+import { onMounted, ref } from "vue";
 
-const route = useRoute()
+const router = useRouter();
 
-let user = ref(null);
-let username = ref(null);
-let msg = ref("login with discord");
-let loggedIn = ref(false);
+const username = ref(null);
+const message = ref("Login with Discord");
+const isLoggedIn = ref(false);
 
-function loginWithDiscord() {
-  const clientId = "1306115574849601568";
-  const redirectUri = "http://localhost:5173/callback";
-  const oauthUrl = `https://discord.com/oauth2/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(
-    redirectUri
-  )}&response_type=token&scope=identify`;
-  window.location.href = oauthUrl;
-};
+onMounted(() => {
+  handleLogin();
+});
+
+function handleLogin() {
+  const storedUsername = localStorage.getItem("username");
+
+  if (storedUsername) {
+    isLoggedIn.value = true;
+    username.value = storedUsername;
+    message.value = `Logged in as: ${storedUsername}`;
+  } else {
+    const token = getTokenFromHash();
+    if (token) {
+      fetchUserDetails(token);
+    }
+  }
+}
+
+function getTokenFromHash() {
+  const hash = window.location.hash;
+  if (hash.includes("access_token")) {
+    return new URLSearchParams(hash.slice(1)).get("access_token");
+  }
+  return null;
+}
 
 async function fetchUserDetails(token) {
   try {
@@ -27,41 +44,46 @@ async function fetchUserDetails(token) {
     });
     const data = await response.json();
     username.value = data.username;
+
     if (username.value) {
-    msg.value = ("logged in as: ")
-    loggedIn.value = true;}
+      message.value = `Logged in as: ${username.value}`;
+      isLoggedIn.value = true;
+      localStorage.setItem("username", data.username);
+    }
   } catch (error) {
     console.error("Error fetching user details:", error);
   }
 }
 
-function getToken() {
-  const hash = window.location.hash;
-  if (hash.includes("access_token")) {
-    const token = new URLSearchParams(hash.slice(1)).get("access_token");
-    return token;
-  }
+function loginWithDiscord() {
+  const DISCORD_CLIENT_ID = import.meta.env.VITE_DISCORD_CLIENT_ID;
+  const DISCORD_REDIRECT_URI = import.meta.env.VITE_DISCORD_REDIRECT_URI;
+  const oauthUrl = `https://discord.com/oauth2/authorize?client_id=${DISCORD_CLIENT_ID}&redirect_uri=${encodeURIComponent(
+    DISCORD_REDIRECT_URI
+  )}&response_type=token&scope=identify`;
+  window.location.href = oauthUrl;
 }
 
-function handleLogin() {
-  const code = getToken();
-  fetchUserDetails(code)
+function logout() {
+  localStorage.removeItem("username");
+  username.value = null;
+  isLoggedIn.value = false;
+  message.value = "Login with Discord";
+  router.push("/");
 }
-
-onMounted(() => {
-  handleLogin();
-})
-
 </script>
 
 <template>
   <div class="card">
     <div>
-      <h1>{{ msg }}</h1>
-      <button v-if="!loggedIn" type="button" @click="loginWithDiscord">login</button>
-      <div id="displayUsername"> {{ username }} </div>
-    <RouterLink to="/servers">Test servers</RouterLink>
-  </div>
+      <h1>{{ message }}</h1>
+      <button v-if="!isLoggedIn" type="button" @click="loginWithDiscord">
+        Login
+      </button>
+      <div id="displayUsername">{{ username }}</div>
+      <RouterLink to="/servers">Server List</RouterLink>
+      <button v-if="isLoggedIn" type="button" @click="logout">Logout</button>
+    </div>
   </div>
 </template>
 
