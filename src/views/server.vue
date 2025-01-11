@@ -25,8 +25,8 @@ async function getQueue() {
       throw new Error(`Response status: ${response.status}`)
     }
     data = await response.json();
-    queue.value = data[0].queue;
-    serverName.value = data[0].name; 
+    queue.value = data.queue;
+    serverName.value = data.name; 
     } catch (error) {
     console.error(error.message)
   } 
