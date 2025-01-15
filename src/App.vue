@@ -6,8 +6,8 @@ const route = useRoute();
 </script>
 
 <template>
-  <div id="navbar">
-    <Navbar></Navbar>
+  <div id="navbar-wrapper">
+    <Navbar id="navbar"></Navbar>
   </div>
   <div id="viewPane">
     <RouterView :key="route.fullPath"></RouterView>
@@ -19,8 +19,14 @@ const route = useRoute();
   border: 1px solid white;
 }
 
-#navbar {
+#navbar-wrapper {
   display: flex;
-  justify-content: center;
+  margin-bottom: 2%;
+  }
+
+#navbar {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
 }
 </style>
