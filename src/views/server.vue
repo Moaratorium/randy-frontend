@@ -35,13 +35,18 @@ async function getQueue() {
 
 <template>
 <h1>Playing for : {{ serverName }} </h1>
+<div id="column-wrapper">
+      <div id="position-col" class="column">Position</div>
+      <div id="title-col" class="column">Title</div>
+      <div id="artist-col" class="column">Artist</div>
+    </div>
 <div v-if="queue && queue.length !== 0" class="content">
   <SongTag
   v-for="(song, index) in queue"
   :key="index"
+  :position="index"
   :title="song.info.title"
   :artist="song.info.author"
-  class="flex-child"
   ></SongTag>
 </div>
 <div v-else class="content">Nothing is playing.</div>
@@ -49,5 +54,16 @@ async function getQueue() {
 </template>
 
 <style scoped>
+#column-wrapper {
+  display: flex;
+  width: 100%;
+}
 
+.column {
+  flex: 1;
+}
+
+#position-col {
+  max-width: 10%;
+}
 </style>
