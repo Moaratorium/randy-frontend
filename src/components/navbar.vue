@@ -14,8 +14,8 @@ function logout() {
 <div id="nav-items">
     <div id="brand">Randy Music Bot</div>
     <RouterLink to="/" class="nav-link">Home</RouterLink>
-    <RouterLink to="commands" class="nav-link">Commands</RouterLink>
-    <RouterLink to="servers" class="nav-link">Servers</RouterLink>
+    <RouterLink to="/commands" class="nav-link">Commands</RouterLink>
+    <RouterLink to="/servers" class="nav-link">Servers</RouterLink>
     <button type="button" @click="logout">Logout</button>
 </div>
 </template>
