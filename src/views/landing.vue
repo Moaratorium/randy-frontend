@@ -82,7 +82,6 @@ function logout() {
       </button>
       <div id="displayUsername">{{ username }}</div>
       <RouterLink to="/servers">Server List</RouterLink>
-      <button v-if="isLoggedIn" type="button" @click="logout">Logout</button>
     </div>
   </div>
 </template>
