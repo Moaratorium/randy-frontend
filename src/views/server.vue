@@ -8,15 +8,12 @@ const serverId = route.params.key;
 const serverName = ref(null);
 const addSong = ref(null)
 const serverIcon = ref(null)
-const alias = ref(">")
-
+const prefix = ref(">")
 const api = import.meta.env.VITE_BACKEND_API;
-
 const queue = ref(null)
 let data = '';
 
 watch(() => route.params.id, getQueue, { immediate: true })
-
 
 async function getQueue() {
   try {
@@ -132,7 +129,7 @@ async function addSongToQueue() {
 <template>
 <div id="server-info">
   <h1>Playing for : {{ serverName }} </h1>
-  <p>Alias: {{ alias }}</p>
+  <p>Alias: {{ prefix }}</p>
   <img :src="serverIcon"/>
 </div>
 <div id="column-wrapper">

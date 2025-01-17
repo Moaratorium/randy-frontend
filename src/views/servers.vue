@@ -4,9 +4,7 @@ import ServerTag from '../components/servertag.vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
-
 const api = import.meta.env.VITE_BACKEND_API;
-
 const serverList = ref(null)
 
 watch(() => route.params.id, getServers, { immediate: true })
