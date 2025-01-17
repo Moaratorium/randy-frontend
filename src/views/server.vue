@@ -8,6 +8,7 @@ const serverId = route.params.key;
 const serverName = ref(null);
 const addSong = ref(null)
 const serverIcon = ref(null)
+const alias = ref(">")
 
 const api = import.meta.env.VITE_BACKEND_API;
 
@@ -129,8 +130,9 @@ async function addSongToQueue() {
 </script>
 
 <template>
-<h1>Playing for : {{ serverName }} </h1>
-<div id="server-icon">
+<div id="server-info">
+  <h1>Playing for : {{ serverName }} </h1>
+  <p>Alias: {{ alias }}</p>
   <img :src="serverIcon"/>
 </div>
 <div id="column-wrapper">
