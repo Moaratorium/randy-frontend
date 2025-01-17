@@ -7,6 +7,7 @@ const route = useRoute()
 const serverId = route.params.key;
 const serverName = ref(null);
 const addSong = ref(null)
+const serverIcon = ref(null)
 
 const api = import.meta.env.VITE_BACKEND_API;
 
@@ -26,8 +27,10 @@ async function getQueue() {
       throw new Error(`Response status: ${response.status}`)
     }
     data = await response.json();
-    queue.value = data[0].queue;
-    serverName.value = data[0].name; 
+    queue.value = data.queue;
+    serverName.value = data.name; 
+    serverIcon.value = data.icon;
+
     } catch (error) {
     console.error(error.message)
   } 
@@ -127,6 +130,9 @@ async function addSongToQueue() {
 
 <template>
 <h1>Playing for : {{ serverName }} </h1>
+<div id="server-icon">
+  <img :src="serverIcon"/>
+</div>
 <div id="column-wrapper">
       <div id="position-col" class="column">Position</div>
       <div id="title-col" class="column">Title</div>
