@@ -6,6 +6,7 @@ import { useRoute } from 'vue-router'
 const route = useRoute()
 const serverId = route.params.key;
 const serverName = ref(null);
+const addSong = ref(null)
 
 const api = import.meta.env.VITE_BACKEND_API;
 
@@ -25,8 +26,8 @@ async function getQueue() {
       throw new Error(`Response status: ${response.status}`)
     }
     data = await response.json();
-    queue.value = data.queue;
-    serverName.value = data.name; 
+    queue.value = data[0].queue;
+    serverName.value = data[0].name; 
     } catch (error) {
     console.error(error.message)
   } 
@@ -38,7 +39,7 @@ async function sendSkip() {
       throw new Error(`Not in a valid server`)
     }
     const response = await fetch(`${api}/skipSong`,{
-      method: "PATCH",
+      method: "POST",
       body: JSON.stringify({ guildId: `${serverId}`}),
       headers: {
         "Content-Type": "application/json"
@@ -51,6 +52,7 @@ async function sendSkip() {
     } catch (error) {
     console.error(error.message)
   } 
+  getQueue();
 }
 
 async function clearQueue(){
@@ -59,7 +61,7 @@ async function clearQueue(){
       throw new Error(`Not in a valid server`)
     }
     const response = await fetch(`${api}/clearQueue`,{
-      method: "PATCH",
+      method: "POST",
       body: JSON.stringify({ guildId: `${serverId}`}),
       headers: {
         "Content-Type": "application/json"
@@ -72,10 +74,53 @@ async function clearQueue(){
     } catch (error) {
     console.error(error.message)
   }
+  getQueue();
 }
 
 async function removeLastSong(){
-  console.log("This is a stub for later...")
+  try {
+    if (!serverId) {
+      throw new Error(`Not in a valid server`)
+    }
+    const response = await fetch(`${api}/removeLast`,{
+      method: "POST",
+      body: JSON.stringify({ guildId: `${serverId}`}),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }
+    );
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`)
+    }
+    } catch (error) {
+    console.error(error.message)
+  }
+  getQueue();
+}
+
+async function addSongToQueue() {
+  try {
+    if (!serverId) {
+      throw new Error(`Not in a valid server`)
+    }
+    console.log(addSong)
+    const response = await fetch(`${api}/addSong`,{
+      method: "POST",
+      body: JSON.stringify({ guildId: `${serverId}`, track: `${addSong.value}`}),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }
+    );
+    addSong.value = "song name, url, etc...";
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`)
+    }
+    } catch (error) {
+    console.error(error.message)
+  }
+  getQueue();
 }
 
 </script>
@@ -102,6 +147,16 @@ async function removeLastSong(){
   <button @click="clearQueue" class="server-button" id="clear-button">Clear Queue</button>
   <button @click="removeLastSong" class="server-button" id="remove-button">Remove Last</button>
   <button @click="getQueue" class="server-button" id="refresh-button">Refresh</button></div>
+  <div>
+    <fieldset>
+      <legend>Add Song to Queue:</legend>
+      <div>
+        <p>{{ addSong }}</p>
+        <input type="text" id="add-song" v-model="addSong" placeholder="song name, url, etc...">
+        <button @click="addSongToQueue" class="server-button" id="add-button"> -> </button>
+      </div>
+    </fieldset>
+  </div>
 </template>
 
 <style scoped>
