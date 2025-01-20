@@ -1,13 +1,14 @@
 <script setup>
-import { RouterLink, useRouter, useRoute } from 'vue-router';
+import { RouterLink, useRouter } from 'vue-router';
 
 const router = useRouter();
+
+let isLoggedIn = localStorage.getItem("username");
 
 function logout() {
   localStorage.removeItem("username");
         router.push("/");
     }
-
 
 </script>
 <template>
@@ -16,7 +17,7 @@ function logout() {
     <RouterLink to="/" class="nav-link">Home</RouterLink>
     <RouterLink to="/commands" class="nav-link">Commands</RouterLink>
     <RouterLink to="/servers" class="nav-link">Servers</RouterLink>
-    <button type="button" @click="logout">Logout</button>
+    <button v-if="isLoggedIn" type="button" @click="logout">Logout</button>
 </div>
 </template>
 <style scoped>
@@ -25,7 +26,7 @@ function logout() {
 }
 
 .nav-link, #brand {
-    margin: auto;
+    margin: 0 1em;
     border-radius: 8px;
     border: 1px solid transparent;
     padding: 0.6em 1.2em;
@@ -38,18 +39,18 @@ function logout() {
     color: whitesmoke;
     padding-block: 7.5px;
 }:hover {
-    border-color: #646cff;
+    border-color: #efff64;
 }
 
 button {
     margin: auto;
     margin-right: 0;
-    border-radius: 8px 0 0 8px
+    border-radius: 8px;
 }
 
 #brand {
     margin-left: 0;
-    border-radius: 0 8px 8px 0;
+    border-radius: 8px;
 }
 
 </style>

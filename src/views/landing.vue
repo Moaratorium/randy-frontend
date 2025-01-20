@@ -18,7 +18,7 @@ function handleLogin() {
   if (storedUsername) {
     isLoggedIn.value = true;
     username.value = storedUsername;
-    message.value = `Logged in as: ${storedUsername}`;
+    message.value = `Welcome back, ${storedUsername}!`;
   } else {
     const token = getTokenFromHash();
     if (token) {
@@ -46,7 +46,7 @@ async function fetchUserDetails(token) {
     username.value = data.username;
 
     if (username.value) {
-      message.value = `Logged in as: ${username.value}`;
+      message.value = `Welcome, ${username.value}!`;
       isLoggedIn.value = true;
       localStorage.setItem("username", data.username);
     }
@@ -71,6 +71,7 @@ function logout() {
   message.value = "Login with Discord";
   router.push("/");
 }
+
 </script>
 
 <template>

@@ -31,7 +31,7 @@ async function getServers() {
   :key="index"
   :id="server.id"
   :name="server.name"
-  :image="server.icon"
+  :image="server.image"
   ></ServerTag>
 </div>
 <div v-else class="empty">

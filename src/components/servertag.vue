@@ -6,7 +6,6 @@ defineProps(['name', 'image', 'id'])
 <template>
   <div class="serverTag">
     <img :src="image">
-    <h2>{{ id }}</h2>
      <RouterLink 
      :to="{path: `/servers/${id}`}"
      >{{ name }}</RouterLink> 
@@ -14,5 +13,8 @@ defineProps(['name', 'image', 'id'])
 </template>
 
 <style scoped>
-
+.serverTag {
+  display: block;
+  margin-top: 1em;
+}
 </style>
