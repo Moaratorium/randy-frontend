@@ -63,5 +63,6 @@ button:focus-visible {
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  vertical-align: middle;
   word-wrap: break-word;
 }

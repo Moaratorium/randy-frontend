@@ -49,6 +49,7 @@ async function fetchUserDetails(token) {
       message.value = `Welcome, ${username.value}!`;
       isLoggedIn.value = true;
       localStorage.setItem("username", data.username);
+      window.location.reload(true)
     }
   } catch (error) {
     console.error("Error fetching user details:", error);
@@ -81,7 +82,6 @@ function logout() {
       <button v-if="!isLoggedIn" type="button" @click="loginWithDiscord">
         Login
       </button>
-      <div id="displayUsername">{{ username }}</div>
       <RouterLink to="/servers">Server List</RouterLink>
     </div>
   </div>
