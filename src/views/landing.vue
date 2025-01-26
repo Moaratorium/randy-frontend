@@ -1,26 +1,27 @@
 <script setup>
-import { RouterLink, useRouter } from "vue-router";
+import { useRouter } from "vue-router";
 import { onMounted, ref } from "vue";
 
 const router = useRouter();
 
 const username = ref(null);
-const message = ref("Login with Discord");
+
 const isLoggedIn = ref(false);
+
+const emit = defineEmits(['checkLogin'])
 
 onMounted(() => {
   handleLogin();
 });
 
 function handleLogin() {
-  const storedUsername = localStorage.getItem("username");
-
+  let storedUsername = localStorage.getItem("username");
   if (storedUsername) {
     isLoggedIn.value = true;
     username.value = storedUsername;
-    message.value = `Welcome back, ${storedUsername}!`;
+    router.push('/servers')
   } else {
-    const token = getTokenFromHash();
+    let token = getTokenFromHash();
     if (token) {
       fetchUserDetails(token);
     }
@@ -44,12 +45,11 @@ async function fetchUserDetails(token) {
     });
     const data = await response.json();
     username.value = data.username;
-
     if (username.value) {
-      message.value = `Welcome, ${username.value}!`;
       isLoggedIn.value = true;
       localStorage.setItem("username", data.username);
-      window.location.reload(true)
+      emit('checkLogin')
+      router.push('/servers')
     }
   } catch (error) {
     console.error("Error fetching user details:", error);
@@ -65,26 +65,16 @@ function loginWithDiscord() {
   window.location.href = oauthUrl;
 }
 
-function logout() {
-  localStorage.removeItem("username");
-  username.value = null;
-  isLoggedIn.value = false;
-  message.value = "Login with Discord";
-  router.push("/");
-}
-
 </script>
 
 <template>
   <div class="card">
-    <div>
-      <h1>{{ message }}</h1>
+    <div id="welcome">Randy Music Bot</div>
       <button v-if="!isLoggedIn" type="button" @click="loginWithDiscord">
-        Login
+        Discord Login
       </button>
-      <RouterLink to="/servers">Server List</RouterLink>
-    </div>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+</style>

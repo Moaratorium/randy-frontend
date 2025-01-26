@@ -1,23 +1,30 @@
 <script setup>
 import { RouterLink, useRouter } from 'vue-router';
+import { ref } from 'vue'
 
 const router = useRouter();
+const emit = defineEmits(['checkLogin'])
+const username = ref(localStorage.getItem("username"));
 
-let isLoggedIn = localStorage.getItem("username");
+function redirectToLogin() {
+    router.push('/')
+}
 
 function logout() {
   localStorage.removeItem("username");
+        emit('checkLogin')
         router.push("/");
     }
 
 </script>
 <template>
 <div id="nav-items">
-    <div id="brand">Randy Music Bot</div>
-    <RouterLink to="/" class="nav-link">Home</RouterLink>
+    <RouterLink to="/" class="nav-link">landing dasdasd</RouterLink>
     <RouterLink to="/commands" class="nav-link">Commands</RouterLink>
     <RouterLink to="/servers" class="nav-link">Servers</RouterLink>
-    <button v-if="isLoggedIn" type="button" @click="logout">Logout</button>
+    <div id="username">{{ username }}</div>
+    <button v-if="username" type="button" @click="logout">Logout</button>
+    <button v-else type="button" @click="redirectToLogin">Login</button>
 </div>
 </template>
 <style scoped>
@@ -25,7 +32,7 @@ function logout() {
     width: 100%;
 }
 
-.nav-link, #brand {
+.nav-link {
     margin: 0 1em;
     border-radius: 8px;
     border: 1px solid transparent;
@@ -45,11 +52,6 @@ function logout() {
 button {
     margin: auto;
     margin-right: 0;
-    border-radius: 8px;
-}
-
-#brand {
-    margin-left: 0;
     border-radius: 8px;
 }
 

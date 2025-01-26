@@ -5,6 +5,7 @@ import Server from './views/server.vue'
 import Error from './views/error.vue'
 import Commands from './views/commands.vue'
 
+
 const routes = [
     {path: '/', name:'landing', component: Landing},
     {path: '/callback', name:'auth', component: Landing},
