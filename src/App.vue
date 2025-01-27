@@ -2,11 +2,10 @@
 import Navbar from './components/navbar.vue';
 import { useRoute } from 'vue-router'
 
-const navKey = 0;
+let navKey = 0;
 const route = useRoute();
 
 function loginRefresh() {
-  console.log('navbar refresh')
   navKey++;
 }
 
@@ -17,7 +16,7 @@ function loginRefresh() {
     <Navbar :key="navKey" id="navbar" @checkLogin="loginRefresh"></Navbar>
   </div>
   <div id="viewPane">
-    <RouterView :key="route.fullPath" @checkLogin="loginRefresh"></RouterView>
+    <RouterView :key="route.fullPath" ></RouterView>
   </div>
 </template>
 
