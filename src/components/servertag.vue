@@ -1,14 +1,12 @@
 <script setup>
-import { RouterLink } from 'vue-router'
-defineProps(['name', 'image', 'id'])
+import { RouterLink } from "vue-router";
+defineProps(["name", "image", "id"]);
 </script>
 
 <template>
   <div class="serverTag">
-    <img :src="image">
-     <RouterLink 
-     :to="{path: `/servers/${id}`}"
-     >{{ name }}</RouterLink> 
+    <img :src="image" />
+    <RouterLink :to="{ path: `/servers/${id}` }">{{ name }}</RouterLink>
   </div>
 </template>
 

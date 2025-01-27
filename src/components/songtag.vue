@@ -1,5 +1,5 @@
 <script setup>
-defineProps(['title', 'artist', 'position'])
+defineProps(["title", "artist", "position"]);
 </script>
 
 <template>
