@@ -1,10 +1,12 @@
 <script setup>
-defineProps(['commandName', 'description'])
+defineProps(["commandName", "description"]);
 </script>
 
 <template>
   <div class="commandTag">
-    <div id="commandName" class="flex-child"><div class="highlight">{{ commandName }}</div></div>
+    <div id="commandName" class="flex-child">
+      <div class="highlight">{{ commandName }}</div>
+    </div>
     <div id="commandDescription" class="flex-child">{{ description }}</div>
   </div>
 </template>
@@ -25,6 +27,4 @@ defineProps(['commandName', 'description'])
 .highlight {
   color: #f2e753;
 }
-
-
 </style>

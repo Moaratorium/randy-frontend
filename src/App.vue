@@ -1,6 +1,6 @@
 <script setup>
-import Navbar from './components/navbar.vue';
-import { useRoute } from 'vue-router'
+import Navbar from "./components/navbar.vue";
+import { useRoute } from "vue-router";
 
 let navKey = 0;
 const route = useRoute();
@@ -8,7 +8,6 @@ const route = useRoute();
 function loginRefresh() {
   navKey++;
 }
-
 </script>
 
 <template>
@@ -16,7 +15,7 @@ function loginRefresh() {
     <Navbar :key="navKey" id="navbar" @checkLogin="loginRefresh"></Navbar>
   </div>
   <div id="viewPane">
-    <RouterView :key="route.fullPath" ></RouterView>
+    <RouterView :key="route.fullPath"></RouterView>
   </div>
 </template>
 
@@ -29,7 +28,7 @@ function loginRefresh() {
 #navbar-wrapper {
   display: flex;
   margin-bottom: 2%;
-  }
+}
 
 #navbar {
   width: 100%;
