@@ -101,7 +101,6 @@ async function addSongToQueue() {
     if (!serverId) {
       throw new Error(`Not in a valid server`);
     }
-    console.log(addSong);
     const response = await fetch(`${api}/addSong`, {
       method: "POST",
       body: JSON.stringify({
