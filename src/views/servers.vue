@@ -4,9 +4,7 @@ import ServerTag from '../components/servertag.vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
-
 const api = import.meta.env.VITE_BACKEND_API;
-
 const serverList = ref(null)
 
 watch(() => route.params.id, getServers, { immediate: true })
@@ -33,7 +31,7 @@ async function getServers() {
   :key="index"
   :id="server.id"
   :name="server.name"
-  :image="server.icon"
+  :image="server.image"
   ></ServerTag>
 </div>
 <div v-else class="empty">

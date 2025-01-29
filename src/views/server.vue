@@ -8,15 +8,12 @@ const serverId = route.params.key;
 const serverName = ref(null);
 const addSong = ref(null)
 const serverIcon = ref(null)
-const alias = ref(">")
-
+const prefix = ref(">")
 const api = import.meta.env.VITE_BACKEND_API;
-
 const queue = ref(null)
 let data = '';
 
 watch(() => route.params.id, getQueue, { immediate: true })
-
 
 async function getQueue() {
   try {
@@ -131,9 +128,11 @@ async function addSongToQueue() {
 
 <template>
 <div id="server-info">
-  <h1>Playing for : {{ serverName }} </h1>
-  <p>Alias: {{ alias }}</p>
-  <img :src="serverIcon"/>
+  <img id="server-icon" :src="serverIcon"/>
+  <div id="name-prefix">
+  <div id="server-name" class="server-item"> {{ serverName }} </div>
+  <div id="prefix" class="server-item">Prefix: <span class="highlight">{{ prefix }}</span></div>
+  </div>
 </div>
 <div id="column-wrapper">
       <div id="position-col" class="column">Position</div>
@@ -157,10 +156,9 @@ async function addSongToQueue() {
   <button @click="getQueue" class="server-button" id="refresh-button">Refresh</button></div>
   <div>
     <fieldset>
-      <legend>Add Song to Queue:</legend>
+      <legend id="i-am-legend">Add Song to Queue:</legend>
       <div>
-        <p>{{ addSong }}</p>
-        <input type="text" id="add-song" v-model="addSong" placeholder="song name, url, etc...">
+        <input type="text" id="add-song" v-model="addSong" placeholder="Add a song to queue...">
         <button @click="addSongToQueue" class="server-button" id="add-button"> -> </button>
       </div>
     </fieldset>
@@ -173,11 +171,70 @@ async function addSongToQueue() {
   width: 100%;
 }
 
+#server-info {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  text-align: center;
+}  
+
+#server-icon {
+  border: 1px solid rgba(255, 255, 255, 0.603);
+  border-radius: 8px;
+  box-shadow: 0 0 2px 2px rgba(97, 97, 97, 0.171);
+}
+
+#server-name {
+  font-size: 2.4em;
+  font-weight: bold;
+}
+
+#name-prefix {
+  width: 100%;
+}
+
+#prefix {
+  font-size: 1.2em;
+}
+
+.highlight {
+  color: #efff64;
+}
+
+.server-item {
+  width: 100%;
+  margin: auto;
+}
+
+#column-wrapper {
+  margin-top: 1em;
+}
+
 .column {
   flex: 1;
 }
 
 #position-col {
   max-width: 10%;
+}
+
+#add-song {
+  field-sizing: content;
+  min-width: 30em;
+  max-width: 58em;
+  margin-right: 1em;
+}
+
+fieldset {
+  border: 0;
+}
+
+#i-am-legend {
+  display: none;
+}
+
+#button-wrapper {
+  padding-top: 1em;
+  padding-bottom: .5em;
 }
 </style>

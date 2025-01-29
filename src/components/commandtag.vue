@@ -4,7 +4,7 @@ defineProps(['commandName', 'description'])
 
 <template>
   <div class="commandTag">
-    <div id="commandName" class="flex-child">/{{ commandName }}</div>
+    <div id="commandName" class="flex-child"><div class="highlight">{{ commandName }}</div></div>
     <div id="commandDescription" class="flex-child">{{ description }}</div>
   </div>
 </template>
@@ -21,5 +21,10 @@ defineProps(['commandName', 'description'])
   text-align: left;
   padding-left: 2px;
 }
+
+.highlight {
+  color: #f2e753;
+}
+
 
 </style>

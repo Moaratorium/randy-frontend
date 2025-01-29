@@ -16,7 +16,8 @@ const route = useRoute();
 
 <style scoped>
 #viewPane {
-  border: 1px solid white;
+  align-items: center;
+  word-wrap: break-word;
 }
 
 #navbar-wrapper {

@@ -18,7 +18,7 @@ function handleLogin() {
   if (storedUsername) {
     isLoggedIn.value = true;
     username.value = storedUsername;
-    message.value = `Logged in as: ${storedUsername}`;
+    message.value = `Welcome back, ${storedUsername}!`;
   } else {
     const token = getTokenFromHash();
     if (token) {
@@ -46,9 +46,10 @@ async function fetchUserDetails(token) {
     username.value = data.username;
 
     if (username.value) {
-      message.value = `Logged in as: ${username.value}`;
+      message.value = `Welcome, ${username.value}!`;
       isLoggedIn.value = true;
       localStorage.setItem("username", data.username);
+      window.location.reload(true)
     }
   } catch (error) {
     console.error("Error fetching user details:", error);
@@ -71,6 +72,7 @@ function logout() {
   message.value = "Login with Discord";
   router.push("/");
 }
+
 </script>
 
 <template>
@@ -80,7 +82,6 @@ function logout() {
       <button v-if="!isLoggedIn" type="button" @click="loginWithDiscord">
         Login
       </button>
-      <div id="displayUsername">{{ username }}</div>
       <RouterLink to="/servers">Server List</RouterLink>
     </div>
   </div>

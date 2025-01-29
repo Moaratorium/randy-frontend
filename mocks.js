@@ -2,7 +2,7 @@ export const mockServerList = [
     {
         "name": "Light Heaven/Lowrollers",
         "id": "881111533332684298",
-        "icon": 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Basic_human_drawing.png/170px-Basic_human_drawing.png' // live returns null?
+        "icon": 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Basic_human_drawing.png/170px-Basic_human_drawing.png'
     },
     {
         "name": "Moaratorium's Testland",
