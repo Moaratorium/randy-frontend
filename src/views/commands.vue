@@ -18,7 +18,6 @@ async function getCommands() {
     }
     data = await response.json();
     commandsList.value = data; 
-    console.log(data)
     } catch (error) {
     console.error(error.message)
   } 

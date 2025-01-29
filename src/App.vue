@@ -1,16 +1,22 @@
 <script setup>
 import Navbar from './components/navbar.vue';
-import {useRoute} from 'vue-router'
+import { useRoute } from 'vue-router'
 
+let navKey = 0;
 const route = useRoute();
+
+function loginRefresh() {
+  navKey++;
+}
+
 </script>
 
 <template>
   <div id="navbar-wrapper">
-    <Navbar id="navbar"></Navbar>
+    <Navbar :key="navKey" id="navbar" @checkLogin="loginRefresh"></Navbar>
   </div>
   <div id="viewPane">
-    <RouterView :key="route.fullPath"></RouterView>
+    <RouterView :key="route.fullPath" ></RouterView>
   </div>
 </template>
 
