@@ -3,7 +3,7 @@ import { RouterLink, useRouter } from "vue-router";
 import { onMounted, ref } from "vue";
 
 const router = useRouter();
-const emit = defineEmits("checkLogin");
+const emit = defineEmits(["checkLogin"]);
 const username = ref(localStorage.getItem("username"));
 const isLoggedIn = ref(false);
 
@@ -60,6 +60,7 @@ function logout() {
   emit("checkLogin");
   router.push("/logout");
 }
+
 </script>
 <template>
   <div id="nav-items">
